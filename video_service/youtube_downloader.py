@@ -1,5 +1,4 @@
 import yt_dlp
-from s3_service import write_to_s3
 
 def download_video(video_url, file_name):
     options = {
