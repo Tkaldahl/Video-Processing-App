@@ -1,4 +1,5 @@
 import yt_dlp
+from s3_service import write_to_s3
 
 def download_video(video_url, file_name):
     options = {
@@ -14,6 +15,6 @@ if __name__ == "__main__":
     video_url = 'https://www.youtube.com/watch?v=hYMNFFA7vZE'
 
     # Replace 'YOUR_OUTPUT_PATH' with the desired output directory
-    output_file_name = '~/Programming_Projects/Video_Processing_App/Downloaded-Videos'
+    output_file_name = 'Downloaded-Videos/Video-1.webm'
 
     download_video(video_url, output_file_name)

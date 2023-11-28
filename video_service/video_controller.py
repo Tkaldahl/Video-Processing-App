@@ -2,6 +2,7 @@ import os
 import uuid
 from youtube_downloader import download_video
 from video_concatenator import concatenate_videos
+from s3_service import upload_file_obj_to_s3
 
 class VideoController:
     def __init__(self, output_folder='Processed_Videos/'):
@@ -29,13 +30,15 @@ class VideoController:
                 print(f"{video_url} is the last item.")
             else:
                 downloaded_videos.append(transition_video)
-            
+
 
         # Concatenate videos
         output_path = os.path.join(self.output_folder, f"{video_uuid}.mp4")
         concatenate_videos(downloaded_videos, output_path)
 
         print(f"Videos downloaded and concatenated successfully. Output saved to: {output_path}")
+
+        upload_file_obj_to_s3("power-60", output_path, f"processed-videos/{video_uuid}.mp4")
         return output_path
 
     def _test():
