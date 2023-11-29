@@ -8,8 +8,7 @@ def upload_file_obj_to_s3(file_path, bucket, file_name):
 
 
 # Tests
-
 def _test_file_obj_upload():
     upload_file_obj_to_s3('test_resources/hello_world.txt', 'power-60', 'testing/hello-world-test-2.txt')
 
-_test_file_obj_upload()
+# _test_file_obj_upload()
