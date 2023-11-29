@@ -7,10 +7,7 @@ def create_zip_with_ignore(source_folder, output_zip, ignore_files, ignore_dirs)
             dirs[:] = [d for d in dirs if d not in ignore_dirs]
             for file in files:
                 if file not in ignore_files:
-                    zipf.write(os.path.join(root, file), 
-                               os.path.relpath(os.path.join(root, file), 
-                               os.path.join(source_folder, '..')))
-
+                    zipf.write(os.path.join(root, file))
 # Usage
 source_folder = '.'
 output_zip = 'deployment/Video_Processing_App.zip'
