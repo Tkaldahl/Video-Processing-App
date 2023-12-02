@@ -38,7 +38,7 @@ class VideoController:
 
         print(f"Videos downloaded and concatenated successfully. Output saved to: {output_path}")
 
-        upload_file_obj_to_s3(output_path, "power-60", f"processed-videos/{video_uuid}.mp4")
+        upload_file_obj_to_s3(output_path, "power60", f"processed-videos/{video_uuid}.mp4")
         return output_path
 
     def _test():
