@@ -1,4 +1,4 @@
-from playlist_mongo_service import PlaylistMongoService
+from playlist_service.playlist_mongo_service import PlaylistMongoService
 
 class GetAllPlaylists:
     def __init__(self):
