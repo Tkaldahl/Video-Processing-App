@@ -4,3 +4,4 @@ __pycache__
 /deployment/Video_Processing_App.zip
 /my_deployment_package.zip
 /Video_Processing_App.zip
+/aws_lambda_env
