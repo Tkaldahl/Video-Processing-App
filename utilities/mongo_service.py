@@ -37,7 +37,6 @@ class MongoService:
             self.client.close()
             print("Disconnected from MongoDB")
 
-    @abstractmethod
     def save(self, document):
         if self.collection == None:
             try:
@@ -52,7 +51,7 @@ class MongoService:
             print(f"Failed to save doc to MongoDB: {e}")
 
     @abstractmethod
-    def get(self, query):
+    def search(self, query):
         if self.collection == None:
             try:
                 self.connectToClient()
@@ -65,11 +64,6 @@ class MongoService:
 
         except Exception as e:
             print(f"Failed to get doc from MongoDB: {e}")
-
-    @abstractmethod
-    def search(self):
-        print("Searching doc in MongoDB")
-        # TODO: Implement this method
 
     @abstractmethod
     def update(self):
@@ -114,7 +108,7 @@ if __name__ == "__main__":
     docId = mongo_service.save(test_doc)
     print(docId)
 
-    newDoc = mongo_service.get({"_id": docId})
+    newDoc = mongo_service.search({"_id": docId})
     print(newDoc)
 
     mongo_service.deleteById(docId)
