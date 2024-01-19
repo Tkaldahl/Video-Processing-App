@@ -1,8 +1,8 @@
 import os
 import uuid
-from video_service.youtube_downloader import download_video
-from video_service.video_concatenator import concatenate_videos
-from video_service.s3_service import upload_file_obj_to_s3
+from ..video_service.youtube_downloader import download_video
+from ..video_service.video_concatenator import concatenate_videos
+from ..video_service.s3_service import upload_file_obj_to_s3
 
 class VideoController:
     def __init__(self, output_folder='Processed_Videos/'):

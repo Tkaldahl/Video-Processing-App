@@ -50,7 +50,6 @@ class MongoService:
         except Exception as e:
             print(f"Failed to save doc to MongoDB: {e}")
 
-    @abstractmethod
     def search(self, query):
         if self.collection == None:
             try:
@@ -65,13 +64,11 @@ class MongoService:
         except Exception as e:
             print(f"Failed to get doc from MongoDB: {e}")
 
-    @abstractmethod
     def update(self):
         print("Updating doc in MongoDB")
         # TODO: Implement this method
 
-    @abstractmethod
-    def deleteById(self, docId):
+    def delete_by_id(self, docId):
         if self.collection == None:
             try:
                 self.connectToClient()

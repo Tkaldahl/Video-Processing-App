@@ -1,9 +1,11 @@
 import json
-from flask import Flask, jsonify, request
-from playlist_service.get_all_playlists import GetAllPlaylists
-from playlist_service.save_playlist import SavePlaylist
-from video_service.video_controller import VideoController
-from bson import ObjectId
+from flask import Flask, request
+from power_60_services.playlist_service.actions.get_all_playlists import GetAllPlaylists
+from power_60_services.playlist_service.actions.save_playlist import SavePlaylist
+from power_60_services.playlist_service.actions.search_playlists import SearchPlaylists
+from power_60_services.playlist_service.actions.delete_playlist import DeletePlaylist
+from power_60_services.video_service.video_controller import VideoController
+
 
 
 app = Flask(__name__)
@@ -51,6 +53,32 @@ def get_all_playlists():
     }
 
     playlists = GetAllPlaylists().main()
+    return playlists, 200, response_headers
+
+@app.route('/search_playlists', methods=['POST'])
+def search_playlists():
+    response_headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Headers': 'Content-Type'
+    }
+
+    search_playlist_req = request.get_data().decode('utf-8')
+    search_playlist_req_json = json.loads(search_playlist_req)
+    playlists = SearchPlaylists().main(search_playlist_req_json)
+    return playlists, 200, response_headers
+
+@app.route('/delete_playlist', methods=['POST'])
+def delete_playlist():
+    response_headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Headers': 'Content-Type'
+    }
+
+    delete_playlist_req = request.get_data().decode('utf-8')
+    delete_playlist_req_json = json.loads(delete_playlist_req)
+    playlists = DeletePlaylist().main(delete_playlist_req_json)
     return playlists, 200, response_headers
 
 if __name__ == '__main__':

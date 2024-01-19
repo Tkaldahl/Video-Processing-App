@@ -1,6 +1,6 @@
 import json
 import string
-from playlist_service.playlist_mongo_service import PlaylistMongoService
+from ..services.playlist_mongo_service import PlaylistMongoService
 
 class SavePlaylist:
     def __init__(self):
