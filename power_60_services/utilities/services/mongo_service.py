@@ -56,10 +56,24 @@ class MongoService:
                 self.connectToClient()
                 self.connectToCollection(self.dbName, self.collectionName)
             except Exception as e:
-                print(f"Failed to delete doc from MongoDB: {e}")
+                print(f"Failed to search MongoDB: {e}")
         
         try:
             return list(self.collection.find(query))
+
+        except Exception as e:
+            print(f"Failed to get doc from MongoDB: {e}")
+
+    def search_by_id(self, docId):
+        if self.collection == None:
+            try:
+                self.connectToClient()
+                self.connectToCollection(self.dbName, self.collectionName)
+            except Exception as e:
+                print(f"Failed to find doc from MongoDB: {e}")
+        
+        try:
+            return self.collection.find_one({"_id": ObjectId(docId)})
 
         except Exception as e:
             print(f"Failed to get doc from MongoDB: {e}")

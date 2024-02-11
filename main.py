@@ -2,6 +2,7 @@ import json
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from power_60_services.playlist_service.actions.get_all_playlists import GetAllPlaylists
+from power_60_services.playlist_service.actions.get_playlist_by_id import GetPlaylistById
 from power_60_services.playlist_service.actions.save_playlist import SavePlaylist
 from power_60_services.playlist_service.actions.search_playlists import SearchPlaylists
 from power_60_services.playlist_service.actions.delete_playlist import DeletePlaylist
@@ -45,6 +46,20 @@ def save_playlist():
     playlist_id = SavePlaylist().main(save_playlist_req_json)
 
     return {"playlist_id": playlist_id}, 200, response_headers
+
+
+@app.route("/get_playlist_by_id", methods=["POST"])
+def get_playlist_by_id():
+    response_headers = {
+        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Headers": "Content-Type"
+    }
+
+    get_playlist_by_id_req = request.get_data().decode("utf-8")
+    get_playlist_by_id_req_json = json.loads(get_playlist_by_id_req)
+
+    playlist = GetPlaylistById().main(get_playlist_by_id_req_json)
+    return {"playlist": playlist}, 200, response_headers
 
 
 @app.route("/get_all_playlists", methods=["POST"])

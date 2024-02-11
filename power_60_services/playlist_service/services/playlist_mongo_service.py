@@ -15,6 +15,11 @@ class PlaylistMongoService:
     def save(self, playlist):
         playlist_id = self.mongo_service.save(playlist)
         return str(playlist_id)
+
+    def get_playlist_by_id(self, playlist_id: string):
+        playlist = self.mongo_service.search_by_id(playlist_id)
+        playlist['_id'] = str(playlist['_id'])
+        return playlist
     
     def search_playlists(self, search_query: dict):
         playlists = self.mongo_service.search(search_query)

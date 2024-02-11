@@ -23,16 +23,16 @@ class SearchPlaylists:
         return search_query
 
 # Test code
-if __name__ == "__main__":
-    save_playlist_req = {
-        "playlist_name": "Save Playlist Test",
-        "transition_video_url": "https://www.youtube.com/watch?v=95L_kFa8Rb4",
-        "video_urls": [
-            "https://www.youtube.com/watch?v=Pqbl3gbj_kQ",
-            "https://youtu.be/MljSdI-_Lls?si=l520wUc-KHIKXd1o",
-            "https://youtu.be/tcAwvku-LEo?si=D_gNq8QRqKkyeTCJ"
-        ]
-    }
+# if __name__ == "__main__":
+#     save_playlist_req = {
+#         "playlist_name": "Save Playlist Test",
+#         "transition_video_url": "https://www.youtube.com/watch?v=95L_kFa8Rb4",
+#         "video_urls": [
+#             "https://www.youtube.com/watch?v=Pqbl3gbj_kQ",
+#             "https://youtu.be/MljSdI-_Lls?si=l520wUc-KHIKXd1o",
+#             "https://youtu.be/tcAwvku-LEo?si=D_gNq8QRqKkyeTCJ"
+#         ]
+#     }
 
-    saved_playlist = SavePlaylist().main(save_playlist_req)
-    print(saved_playlist)
+#     saved_playlist = SavePlaylist().main(save_playlist_req)
+#     print(saved_playlist)
