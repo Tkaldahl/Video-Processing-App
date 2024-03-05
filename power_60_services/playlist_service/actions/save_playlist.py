@@ -1,6 +1,7 @@
 import json
 import string
 from ..services.playlist_mongo_service import PlaylistMongoService
+from ..models.playlist_doc import YTVideoMetadata
 
 class SavePlaylist:
     def __init__(self):
@@ -8,26 +9,27 @@ class SavePlaylist:
 
     def main(self, save_playlist_req: json):
         # Save the playlist as an array of strings
-        video_urls = save_playlist_req["video_urls"]
-        transition_video_url = save_playlist_req["transition_video_url"]
-        playlist = self.insert_transition_video(video_urls, transition_video_url)
+        playlist = save_playlist_req["playlist"]
+        transition_video = save_playlist_req["transition_video"]
+        # playlist = self.insert_transition_video(video_urls, transition_video_url)
 
         playlist_name = save_playlist_req["playlist_name"]
-        return self.save(playlist_name, playlist)
+        return self.save(playlist_name, playlist, transition_video)
 
-    def insert_transition_video(self, video_urls, transition_video_url):
-        playlist = []
-        for video_url in video_urls:
-            playlist.append(video_url)
-            playlist.append(transition_video_url)
+    # def insert_transition_video(self, video_urls, transition_video_url):
+    #     playlist = []
+    #     for video_url in video_urls:
+    #         playlist.append(video_url)
+    #         playlist.append(transition_video_url)
         
-        playlist.pop(playlist.__len__() - 1)
-        return playlist
+    #     playlist.pop(playlist.__len__() - 1)
+    #     return playlist
 
-    def save(self, playlist_name: string, playlist: list):
+    def save(self, playlist_name: string, playlist: YTVideoMetadata, transition_video: YTVideoMetadata):
         playlistDoc = {
             "name": playlist_name,
-            "playlist": playlist
+            "playlist": playlist,
+            "transition_video": transition_video
         }
 
         return self.playlist_mongo_service.save(playlistDoc)
