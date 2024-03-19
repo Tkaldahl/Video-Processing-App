@@ -8,13 +8,13 @@ class SavePlaylist:
         self.playlist_mongo_service = PlaylistMongoService()
 
     def main(self, save_playlist_req: json):
-        # Save the playlist as an array of strings
+        playlist_id = save_playlist_req["_id"]
         playlist = save_playlist_req["playlist"]
         transition_video = save_playlist_req["transition_video"]
         # playlist = self.insert_transition_video(video_urls, transition_video_url)
 
         playlist_name = save_playlist_req["playlist_name"]
-        return self.save(playlist_name, playlist, transition_video)
+        return self.save(playlist_id, playlist_name, playlist, transition_video)
 
     # def insert_transition_video(self, video_urls, transition_video_url):
     #     playlist = []
@@ -25,8 +25,9 @@ class SavePlaylist:
     #     playlist.pop(playlist.__len__() - 1)
     #     return playlist
 
-    def save(self, playlist_name: string, playlist: YTVideoMetadata, transition_video: YTVideoMetadata):
+    def save(self, playlist_id: string, playlist_name: string, playlist: YTVideoMetadata, transition_video: YTVideoMetadata):
         playlistDoc = {
+            "_id": playlist_id,
             "name": playlist_name,
             "playlist": playlist,
             "transition_video": transition_video

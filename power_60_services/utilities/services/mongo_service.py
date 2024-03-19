@@ -50,6 +50,20 @@ class MongoService:
         except Exception as e:
             print(f"Failed to save doc to MongoDB: {e}")
 
+    def update(self, document):
+        if self.collection == None:
+            try:
+                self.connectToClient()
+                self.connectToCollection(self.dbName, self.collectionName)
+            except Exception as e:
+                print(f"Failed to update doc from MongoDB: {e}")
+        
+        try:
+            return self.collection.replace_one({"_id": document["_id"]}, document)
+
+        except Exception as e:
+            print(f"Failed to get doc from MongoDB: {e}")
+
     def search(self, query):
         if self.collection == None:
             try:
@@ -77,10 +91,6 @@ class MongoService:
 
         except Exception as e:
             print(f"Failed to get doc from MongoDB: {e}")
-
-    def update(self):
-        print("Updating doc in MongoDB")
-        # TODO: Implement this method
 
     def delete_by_id(self, docId):
         if self.collection == None:
