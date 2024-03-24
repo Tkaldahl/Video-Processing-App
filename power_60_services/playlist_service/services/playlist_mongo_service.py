@@ -1,6 +1,7 @@
 import string
 from ...utilities.services.mongo_service import MongoService
 from bson.objectid import ObjectId
+import uuid
 
 class PlaylistMongoService:
     mongo_service = MongoService()
@@ -14,14 +15,16 @@ class PlaylistMongoService:
         return self.clean_mongo_ids(playlists)
 
     def save(self, playlist):
-        if "_id" in playlist:
+        if "_id" in playlist and playlist["_id"]:
             if isinstance(playlist["_id"], str):
                 playlist["_id"] = ObjectId(playlist["_id"])
             self.mongo_service.update(playlist)
             return str(playlist["_id"])
 
-        playlist_id = self.mongo_service.save(playlist)
-        return str(playlist_id)
+        playlist_id = uuid.uuid4().hex[:24]
+        playlist["_id"] = ObjectId(playlist_id)
+        self.mongo_service.save(playlist)
+        return playlist_id
 
     def get_playlist_by_id(self, playlist_id: string):
         playlist = self.mongo_service.search_by_id(playlist_id)
